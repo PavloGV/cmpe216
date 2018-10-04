@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.9.19)  4 OCT 2018 10:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.9.19)  4 OCT 2018 15:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -88,6 +88,7 @@ File: upsy.fd 2001/06/04 font definitions for U/psy.
 \@sep=\skip43
 \@@sep=\skip44
 
+(./CMPE216_template.spl)
 (/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip45
@@ -870,134 +871,30 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
 Package mathptmx Warning: There are no bold math fonts on input line 1.
 
 
-Package natbib Warning: Citation `ma1995contact' on page 1 undefined on input l
-ine 5.
+Underfull \hbox (badness 10000) in paragraph at lines 5--7
+
+ []
 
 
-Package natbib Warning: Citation `kosaka1992fast' on page 1 undefined on input 
-line 5.
+Underfull \hbox (badness 10000) in paragraph at lines 8--10
 
+ []
 
-Package natbib Warning: Citation `stone2004application' on page 1 undefined on 
-input line 5.
-
-[1
+) (./TeXFiles/2_Formulation_0.tex) (./TeXFiles/3_Method_of_solution_0.tex)
+(./TeXFiles/4_Implementation_0.tex [1
 Non-PDF special ignored!
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (1.48811pt too wide) in paragraph at lines 13--14
-[]\OT1/ptm/m/n/12 The Fi-nite El-e-ment Method (FEM) rep-re-sents the tra-di-ti
-onal ap-proach of pre-dict-ing the stresses,
- []
-
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 25.
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
-File: omsptm.fd 
-)
-LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 25.
-
-
-Package natbib Warning: Citation `Tim_Good' on page 2 undefined on input line 2
-9.
-
-) (./TeXFiles/2_Formulation_0.tex
-<./_Figures/Kernel.jpg, id=12, 283.2984pt x 227.4096pt>
-File: ./_Figures/Kernel.jpg Graphic file (type jpg)
-
-<use ./_Figures/Kernel.jpg>
-Package pdftex.def Info: ./_Figures/Kernel.jpg used on input line 11.
-(pdftex.def)             Requested size: 234.8775pt x 188.53824pt.
-
-<./_Figures/slug.jpg, id=13, 41.9166pt x 52.5162pt>
-File: ./_Figures/slug.jpg Graphic file (type jpg)
- <use ./_Figures/slug.jpg>
-Package pdftex.def Info: ./_Figures/slug.jpg used on input line 12.
-(pdftex.def)             Requested size: 93.94957pt x 117.7132pt.
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no Ä in font ptmr7t!
-Missing character: There is no ì in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no Ä in font ptmr7t!
-Missing character: There is no ù in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no Ä in font ptmr7t!
-Missing character: There is no ù in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no Ä in font ptmr7t!
-Missing character: There is no ì in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no Ä in font ptmr7t!
-Missing character: There is no ù in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no Ä in font ptmr7t!
-Missing character: There is no ù in font ptmr7t!
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[2] [3 <./_Figures/Kernel.jpg> <./_Figures/slug.jpg>])
-(./TeXFiles/3_Method_of_solution_0.tex) (./TeXFiles/4_Implementation_0.tex
-
-LaTeX Warning: Reference `discrete_Fourier_coefficients' on page 4 undefined on
- input line 22.
-
-
-LaTeX Warning: Reference `cont_Fourier_coefficients' on page 4 undefined on inp
-ut line 23.
-
-
-LaTeX Warning: Reference `lambda' on page 4 undefined on input line 24.
-
-
-LaTeX Warning: Reference `gamma' on page 4 undefined on input line 24.
-
-
-LaTeX Warning: Reference `delta' on page 4 undefined on input line 24.
-
-
-LaTeX Warning: Reference `tau' on page 4 undefined on input line 24.
-
-
-LaTeX Warning: Reference `matrices_1' on page 4 undefined on input line 25.
-
-
-LaTeX Warning: Reference `matrices_2' on page 4 undefined on input line 25.
-
-
-LaTeX Warning: Reference `A_coeff_odd' on page 4 undefined on input line 26.
-
-
-LaTeX Warning: Reference `A_coeff_even' on page 4 undefined on input line 26.
-
-
-LaTeX Warning: Reference `C_coeff' on page 4 undefined on input line 26.
-
-
-LaTeX Warning: Reference `final_coat_solution_orig' on page 4 undefined on inpu
-t line 27.
-
-
-LaTeX Warning: Reference `final_substrate_solution_orig' on page 4 undefined on
- input line 27.
-
-
-LaTeX Warning: Reference `sigma_dimensionless' on page 4 undefined on input lin
-e 28.
-
-
-LaTeX Warning: Reference `tau_1' on page 4 undefined on input line 28.
-
-) (./TeXFiles/5_Numerical_Results_0.tex [4]
-<./_Figures/Fibers_a.jpg, id=29, 320.397pt x 349.305pt>
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
+(./TeXFiles/5_Numerical_Results_0.tex
+<./_Figures/Fibers_a.jpg, id=12, 320.397pt x 349.305pt>
 File: ./_Figures/Fibers_a.jpg Graphic file (type jpg)
 
 <use ./_Figures/Fibers_a.jpg>
 Package pdftex.def Info: ./_Figures/Fibers_a.jpg used on input line 9.
 (pdftex.def)             Requested size: 150.32504pt x 163.89087pt.
 
-<./_Figures/Fibers_b.jpg, id=30, 319.4334pt x 367.1316pt>
+<./_Figures/Fibers_b.jpg, id=13, 319.4334pt x 367.1316pt>
 File: ./_Figures/Fibers_b.jpg Graphic file (type jpg)
 
 <use ./_Figures/Fibers_b.jpg>
@@ -1021,47 +918,28 @@ Missing character: There is no ù in font ptmr7t!
 Missing character: There is no ‚ in font ptmr7t!
 Missing character: There is no Ä in font ptmr7t!
 Missing character: There is no ù in font ptmr7t!
-) [5]
-Overfull \hbox (5.3539pt too wide) in paragraph at lines 118--119
-[]\OT1/ptm/m/n/12 The au-thors ac-knowl-edge the tech-ni-cal sup-port and spon-
-sor-ship pro-vided by the CIT-RIS through
- []
-
-No file CMPE216_template.bbl.
-
-Package natbib Warning: There were undefined citations.
-
-[6 <./_Figures/Fibers_a.jpg> <./_Figures/Fibers_b.jpg>] (./CMPE216_template.aux
-)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+) (./CMPE216_template.bbl
+Missing character: There is no ‚ in font ptmr7t!
+Missing character: There is no Ä in font ptmr7t!
+Missing character: There is no ô in font ptmr7t!
+) [2 <./_Figures/Fibers_a.jpg> <./_Figures/Fibers_b.jpg>] (./CMPE216_template.a
+ux) ) 
 Here is how much of TeX's memory you used:
- 16633 strings out of 494953
- 338528 string characters out of 6180977
- 400648 words of memory out of 5000000
- 19509 multiletter control sequences out of 15000+600000
- 41996 words of font info for 97 fonts, out of 8000000 for 9000
+ 16432 strings out of 494953
+ 334798 string characters out of 6180977
+ 396956 words of memory out of 5000000
+ 19324 multiletter control sequences out of 15000+600000
+ 35059 words of font info for 80 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 55i,15n,67p,1317b,796s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/rsfs/rsfs10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/symbol/us
-yr.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/urw/times/utmri8a.pfb>
-Output written on CMPE216_template.pdf (6 pages, 528789 bytes).
+ 55i,8n,67p,668b,286s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/tex
+live/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
+w/times/utmri8a.pfb>
+Output written on CMPE216_template.pdf (2 pages, 363852 bytes).
 PDF statistics:
- 71 PDF objects out of 1000 (max. 8388607)
- 48 compressed objects within 1 object stream
+ 29 PDF objects out of 1000 (max. 8388607)
+ 19 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 33 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 23 words of extra memory for PDF output out of 10000 (max. 10000000)
 
