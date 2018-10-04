@@ -2,32 +2,12 @@
 \label{intro}
 %===============
 
-The ability of certain species (insects, geckos etc.) to climb or cling to surfaces has been observed for many years. However, the underlying physics, leading to this ability, start being understood only recently. Time, habitat and evolution have yielded in different solutions for adhesive ability of the various species, where the complexity of the mechanism seems to be directly proportional to the size of the creature. Since the heaviest of these species is the family of gecko lizards, most research has been directed towards understanding their adhesive ability. It has been shown that the principal mechanism responsible is a very skillful use of ''directional friction'' between nano-scale structures occurring on the gecko toe skin and the environment. Recent analytical work has shown that the spatula-like structure at the end of the natural gecko nanofibers is a critical element in the gecko adhesive system. This provides the ability to get intimate contact with rough surfaces, significantly increases the effective contact area and therefore the adhesive properties of the gecko foot. \cite{ma1995contact, kosaka1992fast, stone2004application}. 
+Of all the various types of robotic locomotion, a dichotomy can be drawn such that
+there are two main categories, robots that require pre-established infrastructure and robots that do not. A rumba requires flat surfaces to traverse, where as DARPA's dog can navigate the uneven surface of a grassy hill. Robots that do not require specific environmental geometry can be deployed in countries that have limited infrastructure to deliver important supplies. For disaster relief, supply delivery via all-terrain, long-distance autonomous vehicles can be critical. \\
 
-When a GSAs nanofibrillar array is adhering to a surface, fibers undergo non-linear deformation of both the stems and the tip. The polymers used for manufacturing the fibers display plastic creep even at relatively low strain rates and stresses below plastic yield. Therefore, a suitable numerical solution, which predicts the optimal fiber geometry, must consider not only the initial shape of the fiber, but also the fiber progressive deformation (local and global) and the influence this has on the local mechanical properties (elastic, viscoelastic, strain hardening/softening and plastic flow). Modeling all these analytically is impossible and using traditional modeling techniques (e.g. finite element methods) could be prohibitive due to the nonlinear nature of the phenomena (e.g. viscoelastic behavior and creep) and the continuously changing boundary conditions (e.g. material relocation). A suitable modeling technique is the Smoothed-Particle Hydrodynamics (SPH). This is a mesh free Lagrange method that considers a particle array, which interact based on predefined local potentials, accounting for the continuously evolving shape (e.g. creep or plastic flow) and material properties (e.g. strain softening) much more easily than the FEM does 
+This paper outlines a proposal for a high-velocity aerial robot drawing
+inspiration from hummingbirds. The robot will use near-vertical take-off, requiring no runway. The bio-inspiration comes from the manner in which humming-birds rapidly decelerate. When hummingbirds are in mating season, the males attract females executing a looping display dive reaching speeds of up to approximately 27 meters per second, \cite{Clark:2009}. The design will incorporate an initial acceleration mechanism to propel the robot to a high altitude. Once the apex of the trajectory is reached, hummingbird-inspired wings and tail feathers will be deployed to mimic the deceleration. \\
 
-The current paper is a parametric study of realistic (modeling existing GSAs) arrays of soft compressible viscoelastic polymer fibers. The deformation, adhesion and shear/friction resistance will be predicted using SPH as a function of the polymer constitutive model (describing different polymers) fiber geometry (different manufacturing techniques and/or shapes) and loading conditions (adhesion on different media and/or loading cycles). 
+The basic design of the robot will be broken up in to two main sections: \textbf{1)} the initial acceleration mechanism and \textbf{2)} the deceleration mechanism. A simulation will first be made, and as a stretch-goal, a prototype will be assembled.
 
-\subsection{FEM vs. Meshfree}
-\label{FEM_vs_SPH}
-The Finite Element Method (FEM) represents the traditional approach of predicting the stresses, strains and deformations in an elastic solid. 
-
-\begin{packed_enum}
-\item Mesh distortion. This could either terminate the simulation of result in significant errors. The solution: re-meshing.
-\item High gradient or distinct local character: very fine mesh = computationally expensive. The solution: adaptive FEM.
-\item Cracks, fragmentations, explosions, impact/penetration: the problems are not only with re- meshing, but the also with mapping the state variables (e.g. thermodynamics variables)
-\item Failure mechanics: in FEM simulated material material disintegration is in fact disintegration of the FEM subdivision. therefore, the simulated disintegration pattern was integrated in the model before the simulation ever started (e.g mesh sensitivity in crack growth simulations). 
-\end{packed_enum}
-
-\subsection {SPH}
-\label{SPH}
-\begin{packed_item}
-\item Meshfree methods are a natural extension of the FEM. However:
-It cold be computationally efficient and physically more accurate to discretize a continuum by only a set of nodal points (particles) without adding mesh constraints.
-\item Smoothed particle hydrodynamics (SPH) is a gridless Lagrangian particle method which replaces the continuum equations of fluid dynamics with particle equations.
-\item The interactions between the particles are determined by interpolation from information at the SPH particles.
-\item When SPH is applied to solids the SPH particles mimic the behavior of the atoms: If the solid is compressed the atoms repel each other. If it is stretched the atoms attract each other and oppose the \ref{Fibers_Bending} stretch \citealp{Tim_Good}.
-\end{packed_item}
-
-
-
+\subsection{Acceleration mechanism}

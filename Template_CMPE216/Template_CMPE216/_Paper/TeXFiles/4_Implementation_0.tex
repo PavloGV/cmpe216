@@ -7,40 +7,7 @@ The algorithm, the numerical solution etc.
 %===================== chart Mircea ==========
 \begin{figure}[H]
 \begin{center}
-%\begin{comment}
-% Define block styles
-\tikzstyle{decision} = [aspect=3, diamond, draw, fill=white!0, text width=6em, text centered, node distance=3cm, inner sep=0pt, minimum height=4em]
-\tikzstyle{block} = [rectangle, draw, fill=white!0,text width=8em, text centered, rounded corners, minimum height=2em]
-\tikzstyle{block_1} = [rectangle, draw, fill=white!0,text width=19em, text centered, rounded corners, minimum height=2em]
-\tikzstyle{line} = [draw, -latex']
-    
-\begin{tikzpicture}[node distance = 2cm, auto]
-% Place nodes
-    	\node [block] (P) {Input Pressure $P(x)$};
-    	\node [decision, below of=P, node distance=1.8cm] (decide_1) {is Pressure \\ Continuous ?};
-    	\node [block, below left of=decide_1, node distance=3.2cm] (No) {Fit linear Spline to $P(x)$};
-    	\node [block, below of=No, node distance=2cm] (No_1) {Compute Fourier coefficients $P_n$ using (\ref{discrete_Fourier_coefficients})};
-    	\node [block, below right of=decide_1, node distance=3.2cm] (Yes) {Compute Fourier coefficients $P_n$ exactly using (\ref{cont_Fourier_coefficients})};
-	\node [block_1, below of=decide_1, node distance=6.2cm] (Lambda) {Compute constants in (\ref{lambda}), (\ref{gamma}), (\ref{delta}), (\ref{tau}) \\ $\lambda_{j,n}, \gamma_{j,n}, \delta_n \tau_{j,n}; j=1..4$};
-	\node [block_1, below of=Lambda, node distance=1.8cm] (Mat) {Compute Matrices in (\ref{matrices_1}), (\ref{matrices_2}) \\ $\mathcal{K}_{j,n}, M_{j,n}, N_{j,n}, Z_{j,n}, W_nj=1..4$};
-    	\node [block_1, below of=Mat, node distance=1.8cm](Coef){Calculate Coefficients in (\ref{A_coeff_odd}), (\ref{A_coeff_even}), (\ref{C_coeff}) \\ $A_n^{(1..4)}, C_n^{(1..2)}$};
-    \node [block_1, below of=Coef, node distance=1.6cm](uv){Construct $u, v$ using (\ref{final_coat_solution_orig}),  (\ref{final_substrate_solution_orig})};
-    \node [block_1, below of=uv, node distance=1.7cm](tau){Determine $\sigma_{xx}, \sigma_{yy}, \sigma_{xy}$ using (\ref{sigma_dimensionless}) and $\tau_1$  using (\ref{tau_1}) };
-    
-% Draw lines
-    \path [line] (P) -- (decide_1);
-    \path [line] (decide_1) -- node [above left] {No} (No);
-    \path [line] (No) -- (No_1);
-    \path [line] (decide_1) -- node [above right]{Yes} (Yes);
-    \path [line] (No_1) -- (Lambda);
-    \path [line] (Yes) -- (Lambda);
-    \path [line] (Lambda) -- (Mat);
-    \path [line] (Mat) -- (Coef);
-    \path [line] (Coef) -- (uv);
-    \path [line] (uv) -- (tau);
- 
-\end{tikzpicture}
-%\end{comment}
+
 
 %\includegraphics[width=0.4\textwidth]{./Figures/Chart.pdf}
 \caption{Example of a chart}
