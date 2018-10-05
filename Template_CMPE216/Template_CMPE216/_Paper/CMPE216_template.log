@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.9.19)  4 OCT 2018 15:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.9.19)  5 OCT 2018 13:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -743,7 +743,11 @@ Package: ulem 2012/05/18
 Package: fullpage 1999/02/23 1.1 (PWD)
 \FP@margin=\skip62
 )
-(./CMPE216_template.aux)
+(./CMPE216_template.aux
+
+LaTeX Warning: Label `fig:trajectory' multiply defined.
+
+)
 \openout1 = `CMPE216_template.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 85.
@@ -759,8 +763,7 @@ LaTeX Font Info:    ... okay on input line 85.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 85.
 LaTeX Font Info:    ... okay on input line 85.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 85.
-
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
@@ -871,75 +874,145 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
 Package mathptmx Warning: There are no bold math fonts on input line 1.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 5--7
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 8--10
+Underfull \hbox (badness 10000) in paragraph at lines 7--9
 
  []
 
-) (./TeXFiles/2_Formulation_0.tex) (./TeXFiles/3_Method_of_solution_0.tex)
-(./TeXFiles/4_Implementation_0.tex [1
+
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
+
+ []
+
+[1
 Non-PDF special ignored!
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
-(./TeXFiles/5_Numerical_Results_0.tex
-<./_Figures/Fibers_a.jpg, id=12, 320.397pt x 349.305pt>
-File: ./_Figures/Fibers_a.jpg Graphic file (type jpg)
+(./TeXFiles/2_Formulation_0.tex
+Underfull \hbox (badness 10000) in paragraph at lines 12--1
 
-<use ./_Figures/Fibers_a.jpg>
-Package pdftex.def Info: ./_Figures/Fibers_a.jpg used on input line 9.
-(pdftex.def)             Requested size: 150.32504pt x 163.89087pt.
+ []
 
-<./_Figures/Fibers_b.jpg, id=13, 319.4334pt x 367.1316pt>
-File: ./_Figures/Fibers_b.jpg Graphic file (type jpg)
 
-<use ./_Figures/Fibers_b.jpg>
-Package pdftex.def Info: ./_Figures/Fibers_b.jpg used on input line 10.
-(pdftex.def)             Requested size: 150.32504pt x 172.77594pt.
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no Ä in font ptmr7t!
-Missing character: There is no ì in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no Ä in font ptmr7t!
-Missing character: There is no ù in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no Ä in font ptmr7t!
-Missing character: There is no ù in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no Ä in font ptmr7t!
-Missing character: There is no ì in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no Ä in font ptmr7t!
-Missing character: There is no ù in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no Ä in font ptmr7t!
-Missing character: There is no ù in font ptmr7t!
-) (./CMPE216_template.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+
+ []
+
+<./_Figures/trajectory.png, id=12, 574.145pt x 416.55624pt>
+File: ./_Figures/trajectory.png Graphic file (type png)
+
+<use ./_Figures/trajectory.png>
+Package pdftex.def Info: ./_Figures/trajectory.png used on input line 10.
+(pdftex.def)             Requested size: 352.31625pt x 255.61804pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+
+ []
+
+[2 <./_Figures/trajectory.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 21--22
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--25
+
+ []
+
+) (./TeXFiles/3_Method_of_solution_0.tex
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--7
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--9
+
+ []
+
+) (./TeXFiles/4_Implementation_0.tex
+Underfull \hbox (badness 10000) in paragraph at lines 5--6
+
+ []
+
+<./_Figures/AccelerationMechanism.png, id=18, 707.64375pt x 667.49374pt>
+File: ./_Figures/AccelerationMechanism.png Graphic file (type png)
+
+<use ./_Figures/AccelerationMechanism.png>
+Package pdftex.def Info: ./_Figures/AccelerationMechanism.png used on input lin
+e 10.
+(pdftex.def)             Requested size: 187.89914pt x 177.2313pt.
+
+<./_Figures/AccelerationMechanism2.png, id=19, 763.85374pt x 724.7075pt>
+File: ./_Figures/AccelerationMechanism2.png Graphic file (type png)
+
+<use ./_Figures/AccelerationMechanism2.png>
+Package pdftex.def Info: ./_Figures/AccelerationMechanism2.png used on input li
+ne 11.
+(pdftex.def)             Requested size: 187.89914pt x 178.26814pt.
+ [3]
+Underfull \hbox (badness 10000) in paragraph at lines 18--19
+
+ []
+
+<./_Figures/wings2.png, id=23, 173.64874pt x 358.33875pt>
+File: ./_Figures/wings2.png Graphic file (type png)
+
+<use ./_Figures/wings2.png>
+Package pdftex.def Info: ./_Figures/wings2.png used on input line 23.
+(pdftex.def)             Requested size: 68.2924pt x 140.92793pt.
+
+<./_Figures/wings.png, id=24, 442.65375pt x 400.49625pt>
+File: ./_Figures/wings.png Graphic file (type png)
+
+<use ./_Figures/wings.png>
+Package pdftex.def Info: ./_Figures/wings.png used on input line 24.
+(pdftex.def)             Requested size: 187.89914pt x 170.00392pt.
+) (./TeXFiles/5_Numerical_Results_0.tex
+Underfull \hbox (badness 10000) in paragraph at lines 31--1
+
+ []
+
+[4 <./_Figures/AccelerationMechanism.png> <./_Figures/AccelerationMechanism2.pn
+g> <./_Figures/wings2.png> <./_Figures/wings.png>])
+Underfull \hbox (badness 10000) in paragraph at lines 4--115
+
+ []
+
+(./CMPE216_template.bbl
 Missing character: There is no ‚ in font ptmr7t!
 Missing character: There is no Ä in font ptmr7t!
 Missing character: There is no ô in font ptmr7t!
-) [2 <./_Figures/Fibers_a.jpg> <./_Figures/Fibers_b.jpg>] (./CMPE216_template.a
-ux) ) 
+) [5] (./CMPE216_template.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
 Here is how much of TeX's memory you used:
- 16432 strings out of 494953
- 334798 string characters out of 6180977
- 396956 words of memory out of 5000000
- 19324 multiletter control sequences out of 15000+600000
+ 16451 strings out of 494953
+ 335358 string characters out of 6180977
+ 397049 words of memory out of 5000000
+ 19340 multiletter control sequences out of 15000+600000
  35059 words of font info for 80 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 55i,8n,67p,668b,286s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/tex
-live/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
-w/times/utmri8a.pfb>
-Output written on CMPE216_template.pdf (2 pages, 363852 bytes).
+ 55i,8n,67p,788b,311s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
+e/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
+imes/utmri8a.pfb>
+Output written on CMPE216_template.pdf (5 pages, 120087 bytes).
 PDF statistics:
- 29 PDF objects out of 1000 (max. 8388607)
- 19 compressed objects within 1 object stream
+ 47 PDF objects out of 1000 (max. 8388607)
+ 26 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 23 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 38 words of extra memory for PDF output out of 10000 (max. 10000000)
 
