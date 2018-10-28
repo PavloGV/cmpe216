@@ -1,0 +1,125 @@
+%% This is file `elsarticle-template-1a-num.tex',
+%%
+%% Copyright 2009 Elsevier Ltd
+%%
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%%
+%% Template article for Elsevier's document class `elsarticle'
+%% with numbered style bibliographic references
+%%
+%% $Id: elsarticle-template-1a-num.tex 151 2009-10-08 05:18:25Z rishi $
+%% $URL: http://lenova.river-valley.com/svn/elsbst/trunk/elsarticle-template-1a-num.tex $
+
+
+
+%%
+%\documentclass[twocolumn,preprint,authoryear,12pt] {elsarticle}
+\documentclass[preprint,authoryear,12pt] {elsarticle}
+
+%\documentclass[preprint,12pt]{elsarticle}
+%\smartqed  % flush right qed marks, e.g. at end of proof
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{amsmath,amssymb,amstext}
+\usepackage{soul}
+\usepackage{enumerate}
+\usepackage{array}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{epsf,exscale}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{psfrag}
+\usetikzlibrary{shapes,arrows}
+\usepackage{mathptmx}      % use Times fonts if available on your TeX system
+%\usepackage{amssymb}
+%\usepackage{color,graphicx,psfrag,amssymb,amsfonts,amsmath,subfigure,enumerate,float}
+\usepackage{ulem}
+%\renewcommand{\baselinestretch}{2}
+\renewcommand{\baselinestretch}{1}
+\usepackage{fullpage}
+\renewcommand{\d}{\text{d}}
+\renewcommand{\Re}{\text{Re}}
+\renewcommand{\Im}{\text{Im}}
+
+\newenvironment{packed_enum}{
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
+
+\newenvironment{packed_item}{
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{itemize}}
+
+\newenvironment{packed_description}{
+\begin{description}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{description}}
+
+%===================================
+%======= FRONT MATTER =================
+%===================================
+
+\journal{UCSC CMPE 216 Bio-Inspired Locomotion (Fall 2018)}
+
+\begin{document}
+
+\begin{frontmatter}
+
+%\title{On the solution of the contact problem involving inhomogeneously elastic bonded layered solids: an analytic approach} 
+\title{Hummingbird-Inspired High-Speed Deceleration and Flea-Inspired Vertical Take-Off} 
+
+\author{Pavlo Vlastos \footnote{\textit{pvlastos@ucsc.edu}}}
+
+\address{Baskin School of Engineering, UC Santa Cruz}
+
+\begin{abstract} 
+A proposal for a bio-inspired robot and simulation are discussed. A flea-like jumping mechanism is proposed along with a hummingbird-inspired wing system for accurate navigation and deceleration. The primary goal of the robot is to deliver a fragile payload, an egg, to the a desired height and location. This proposal shows initial possible design choices.\\
+\end{abstract}
+
+\begin{keyword}
+Flight \sep Bio-inspired \sep Hummingbirds \sep Fleas
+\end{keyword}
+
+\end{frontmatter}
+
+%===================================
+%======= PAPER =======================
+%===================================
+
+\input{./TeXFiles/1_Introduction_0}
+\input{./TeXFiles/2_Formulation_0} 	
+\input{./TeXFiles/3_Method_of_solution_0} 		
+\input{./TeXFiles/4_Implementation_0} 		
+\input{./TeXFiles/5_Numerical_Results_0} 	
+
+% ADD THIS AT THE END ____
+%\section*{Acknowledgement}
+% ADD THIS AT THE END ____
+
+% \section*{References}
+\bibliography{./TeXFiles/Bib_Stewart}
+\bibliographystyle{./model3-num-names.bst}
+
+\end{document}
+
