@@ -1,7 +1,7 @@
 \section{Method of solution}
 \label{method}
 %====================
-\indent The flea-inspired leg is the primary focus of the vertical take-off mechanism. It is treated as a two-link planar robot leg. The forward and inverse kinematics are shown below.\\
+\indent The flea-inspired leg is the primary focus of the vertical take-off mechanism. It is treated as a two-link planar robot leg. The forward and inverse kinematics are discussed here, followed by the free-body diagram.\\
 
 %===================== Kinematics Model ==========
 \begin{figure}[H]
@@ -11,6 +11,8 @@
 \label{fig:kinemaitcs}
 \end{center}
 \end{figure}
+%===================== Kinematics Model ==========
+
 
 \textbf{Forward Kinematics:}
 \begin{align}
@@ -18,7 +20,7 @@
 	y = y_2 = \alpha_1\sin\theta_1 + \alpha\sin(\theta_1 + theta_2)
 \end{align}
 
-\noindent The resulting \textbf{orientation matrix} is as follows:
+\indent The resulting \textbf{orientation matrix} is as follows:
 \begin{equation}
 	\begin{bmatrix}
 		x_2x_0 & y_2x_0\\
@@ -26,15 +28,28 @@
 	\end{bmatrix}
 	= 
 	\begin{bmatrix}
-		\cos(theta_1 + theta_2) & -\sin(theta_1 + theta_2)\\
-		\sin(theta_1 + theta_2) & \cos(theta_1 + theta_2)\\
+		\cos(\theta_1 + \theta_2) & -\sin(\theta_1 + \theta_2)\\
+		\sin(\theta_1 + \theta_2) & \cos(\theta_1 + \theta_2)\\
 	\end{bmatrix}
 \end{equation}
 
 \textbf{Inverse Kinematics:}
 \begin{align}
-	x\\
+	\theta_1 & = \tan^{-1}\bigg(\frac{y_{des}}{x_{des}}\bigg)-\tan^{-1}\bigg(\frac{\alpha_1\sin\theta_2}{\alpha_1+\alpha_2\cos\theta_2}\bigg)\\
+	\theta_2 &= \cos^{-1}\bigg(\frac{x_{des}^2 + y_{des}^2 - \alpha_1^2 - \alpha_2^2}{2\alpha_1\alpha_2}\bigg)
 \end{align}
+\indent The inverse kinematics represents the angles, $\theta_1, \theta_2$ of the two-link leg to be functions of a desired position, ($x_{des}, y_{des}$). When controlling the acceleration of the robot's mass upwards, the inverse kinematics will be used to command a position of the end of the robot leg at various time steps. A desired acceleration can be incorporated into a feedback loop, which is discussed further.\\
+
+%===================== Free-Body Diagram ==========
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.5\linewidth]{./Figures/free-body-diagram.png}
+\caption{Free-body diagram of the FleaSlug robot}
+\label{fig:free-body-diagram}
+\end{center}
+\end{figure}
+%===================== Free-Body Diagram ==========
+
 
 \indent The simulation will look at a number of physical aspects of the robot, but will focus on two main things. The first is energy usage and finding a similar method to store comparable energy density in a small robot. The discharge rate of the energy used to propel the robot upward will be simulated. The second is the flight of the robot. The wing design, air resistance, and lift will be simulated.\\
 
