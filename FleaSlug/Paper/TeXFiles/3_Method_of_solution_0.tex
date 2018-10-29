@@ -1,9 +1,40 @@
 \section{Method of solution}
 \label{method}
 %====================
-\indent The free-body diagram and kinematics and of the Flea Slug is discussed here. The flea-inspired leg is the primary focus of the vertical take-off mechanism. It is treated as a two-link planar robot leg. The forward and inverse kinematics are shown below.\\
+\indent The flea-inspired leg is the primary focus of the vertical take-off mechanism. It is treated as a two-link planar robot leg. The forward and inverse kinematics are shown below.\\
 
+%===================== Kinematics Model ==========
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.5\linewidth]{./Figures/kinematics.png}
+\caption{Model for a planar, two-link, robot leg.}
+\label{fig:kinemaitcs}
+\end{center}
+\end{figure}
 
+\textbf{Forward Kinematics:}
+\begin{align}
+	x = x_2 = \alpha_1\cos\theta_1 + \alpha\cos(\theta_1 + theta_2)\\
+	y = y_2 = \alpha_1\sin\theta_1 + \alpha\sin(\theta_1 + theta_2)
+\end{align}
+
+\noindent The resulting \textbf{orientation matrix} is as follows:
+\begin{equation}
+	\begin{bmatrix}
+		x_2x_0 & y_2x_0\\
+		x_2y_0 & y_2y_0\\
+	\end{bmatrix}
+	= 
+	\begin{bmatrix}
+		\cos(theta_1 + theta_2) & -\sin(theta_1 + theta_2)\\
+		\sin(theta_1 + theta_2) & \cos(theta_1 + theta_2)\\
+	\end{bmatrix}
+\end{equation}
+
+\textbf{Inverse Kinematics:}
+\begin{align}
+	x\\
+\end{align}
 
 \indent The simulation will look at a number of physical aspects of the robot, but will focus on two main things. The first is energy usage and finding a similar method to store comparable energy density in a small robot. The discharge rate of the energy used to propel the robot upward will be simulated. The second is the flight of the robot. The wing design, air resistance, and lift will be simulated.\\
 
