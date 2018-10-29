@@ -2,7 +2,7 @@
 Code, simulations, and writing for CMPE216 Bio-Inspired Locomotion
 
 ## How to generate the .pdf
-Navigate to [cmpe216/FleaSlug/Paper/](./cmpe216/FleaSlug/Paper) and enter the following command:
+Navigate to [cmpe216/FleaSlug/Paper/](./cmpe216/tree/master/FleaSlug/Paper/) and enter the following command:
 
 `make all`
 
