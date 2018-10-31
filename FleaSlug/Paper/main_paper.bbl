@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{4}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
@@ -18,5 +18,40 @@
   {THE} {ENERGETICS} {AND} {A} {MODEL} {OF} {THE} {MECHANISM}}.
 \newblock \bibinfo{journal}{Journal of Experimental Biology}
   \bibinfo{year}{1967};:\bibinfo{pages}{18}.
+%Type = Inproceedings
+\bibitem[{Kovac et~al.(2008)Kovac, Fuchs, Guignard, Zufferey and
+  Floreano}]{kovac_miniature_2008}
+\bibinfo{author}{Kovac\xfnm[ M.]}, \bibinfo{author}{Fuchs\xfnm[ M.]},
+  \bibinfo{author}{Guignard\xfnm[ A.]}, \bibinfo{author}{Zufferey\xfnm[ J.]},
+  \bibinfo{author}{Floreano\xfnm[ D.]}.
+\newblock \bibinfo{title}{A miniature 7g jumping robot}.
+\newblock In: \bibinfo{booktitle}{2008 {IEEE} {International} {Conference} on
+  {Robotics} and {Automation}}. \bibinfo{year}{2008}, p.
+  \bibinfo{pages}{373--378}.
+\newblock \doi{\bibinfo{doi}{10.1109/ROBOT.2008.4543236}}.
+%Type = Article
+\bibitem[{Haldane et~al.(2016)Haldane, Plecnik, Yim and
+  Fearing}]{haldane_robotic_2016}
+\bibinfo{author}{Haldane\xfnm[ D.W.]}, \bibinfo{author}{Plecnik\xfnm[ M.M.]},
+  \bibinfo{author}{Yim\xfnm[ J.K.]}, \bibinfo{author}{Fearing\xfnm[ R.S.]}.
+\newblock \bibinfo{title}{Robotic vertical jumping agility via series-elastic
+  power modulation}.
+\newblock \bibinfo{journal}{Science Robotics}
+  \bibinfo{year}{2016};\bibinfo{volume}{1}(\bibinfo{number}{1}):\bibinfo{pages}{eaag2048}.
+\newblock \doi{\bibinfo{doi}{10.1126/scirobotics.aag2048}}.
+\newblock
+  \urlprefix\url{http://robotics.sciencemag.org/lookup/doi/10.1126/scirobotics.aag2048}.
+%Type = Inproceedings
+\bibitem[{Kalouche(2017)}]{kalouche_goat:_2017}
+\bibinfo{author}{Kalouche\xfnm[ S.]}.
+\newblock \bibinfo{title}{{GOAT}: {A} legged robot with 3d agility and virtual
+  compliance}.
+\newblock In: \bibinfo{booktitle}{2017 {IEEE}/{RSJ} {International}
+  {Conference} on {Intelligent} {Robots} and {Systems} ({IROS})}.
+  \bibinfo{address}{Vancouver, BC}: \bibinfo{publisher}{IEEE}.
+\newblock ISBN \bibinfo{isbn}{978-1-5386-2682-5}; \bibinfo{year}{2017}, p.
+  \bibinfo{pages}{4110--4117}.
+\newblock \doi{\bibinfo{doi}{10.1109/IROS.2017.8206269}}.
+\newblock \urlprefix\url{http://ieeexplore.ieee.org/document/8206269/}.
 
 \end{thebibliography}
