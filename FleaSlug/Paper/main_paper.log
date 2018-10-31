@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  30 OCT 2018 21:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  30 OCT 2018 23:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -920,8 +920,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--17
 
  []
 
-[2]) (./TeXFiles/2_Formulation_0.tex
-Underfull \hbox (badness 10000) in paragraph at lines 18--1
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 18--19
+
+ []
+
+) (./TeXFiles/2_Formulation_0.tex
+Underfull \hbox (badness 10000) in paragraph at lines 20--1
 
  []
 
@@ -936,12 +941,12 @@ File: ./Figures/trajectory.png Graphic file (type png)
 <use ./Figures/trajectory.png>
 Package pdftex.def Info: ./Figures/trajectory.png used on input line 10.
 (pdftex.def)             Requested size: 352.31625pt x 255.61804pt.
-
+ [3]
 Underfull \hbox (badness 10000) in paragraph at lines 18--19
 
  []
 
-[3 <./Figures/trajectory.png>]
+
 Underfull \hbox (badness 10000) in paragraph at lines 20--21
 
  []
@@ -951,24 +956,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 23--24
 
  []
 
-) (./TeXFiles/3_Method_of_solution_0.tex
+[4 <./Figures/trajectory.png>]) (./TeXFiles/3_Method_of_solution_0.tex
 Underfull \hbox (badness 10000) in paragraph at lines 4--5
 
  []
 
-<./Figures/kinematics.png, id=21, 372.39125pt x 531.9875pt>
+<./Figures/kinematics.png, id=24, 372.39125pt x 531.9875pt>
 File: ./Figures/kinematics.png Graphic file (type png)
 
 <use ./Figures/kinematics.png>
 Package pdftex.def Info: ./Figures/kinematics.png used on input line 9.
 (pdftex.def)             Requested size: 234.8775pt x 335.55165pt.
- [4]
+ [5 <./Figures/kinematics.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 40--42
 
  []
 
-[5 <./Figures/kinematics.png>]
-<./Figures/free-body-diagram.png, id=33, 296.10625pt x 289.08pt>
+<./Figures/free-body-diagram.png, id=31, 296.10625pt x 289.08pt>
 File: ./Figures/free-body-diagram.png Graphic file (type png)
 
 <use ./Figures/free-body-diagram.png>
@@ -985,12 +989,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 56--57
 
  []
 
-) (./TeXFiles/4_Implementation_0.tex
+[6 <./Figures/free-body-diagram.png>]) (./TeXFiles/4_Implementation_0.tex
 Underfull \hbox (badness 10000) in paragraph at lines 5--6
 
  []
 
-<./Figures/AccelerationMechanism.png, id=34, 707.64375pt x 667.49374pt>
+<./Figures/AccelerationMechanism.png, id=39, 707.64375pt x 667.49374pt>
 File: ./Figures/AccelerationMechanism.png Graphic file (type png)
 
 <use ./Figures/AccelerationMechanism.png>
@@ -998,14 +1002,14 @@ Package pdftex.def Info: ./Figures/AccelerationMechanism.png used on input line
  10.
 (pdftex.def)             Requested size: 187.89914pt x 177.2313pt.
 
-<./Figures/AccelerationMechanism2.png, id=35, 763.85374pt x 724.7075pt>
+<./Figures/AccelerationMechanism2.png, id=40, 763.85374pt x 724.7075pt>
 File: ./Figures/AccelerationMechanism2.png Graphic file (type png)
 
 <use ./Figures/AccelerationMechanism2.png>
 Package pdftex.def Info: ./Figures/AccelerationMechanism2.png used on input lin
 e 11.
 (pdftex.def)             Requested size: 187.89914pt x 178.26814pt.
- [6 <./Figures/free-body-diagram.png>]
+
 Underfull \hbox (badness 10000) in paragraph at lines 18--19
 
  []
@@ -1023,58 +1027,76 @@ File: ./Figures/wings.png Graphic file (type png)
 <use ./Figures/wings.png>
 Package pdftex.def Info: ./Figures/wings.png used on input line 24.
 (pdftex.def)             Requested size: 187.89914pt x 170.00392pt.
-) (./TeXFiles/5_Numerical_Results_0.tex
+ [7 <./Figures/AccelerationMechanism.png> <./Figures/AccelerationMechanism2.png
+>]) (./TeXFiles/5_Numerical_Results_0.tex
 Underfull \hbox (badness 10000) in paragraph at lines 31--1
 
  []
 
-[7 <./Figures/AccelerationMechanism.png> <./Figures/AccelerationMechanism2.png>
- <./Figures/wings2.png> <./Figures/wings.png>])
+)
 Underfull \hbox (badness 10000) in paragraph at lines 4--118
 
  []
 
 (./main_paper.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 35--45
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 16.
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/psnfss/omsptm.fd
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 16.
+
+Underfull \hbox (badness 10000) in paragraph at lines 15--20
+[]\OT1/ptm/m/n/12 Boston-Dynamics, .  Big-Dog \OMS/cmsy/m/n/12 j \OT1/ptm/m/n/1
+2 Boston Dy-nam-ics.  2005.  URL
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--51
 []\OT1/ptm/m/n/12 Haldane,  D.W., Plec-nik,  M.M., Yim,  J.K., Fear-ing,  R.S..
   Robotic
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 35--45
+Underfull \hbox (badness 10000) in paragraph at lines 41--51
 \OT1/ptm/m/n/12 ver-ti-cal jump-ing agility via series-elastic power mod-u-la-t
 ion.  Sci-ence
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 35--45
+Underfull \hbox (badness 10000) in paragraph at lines 41--51
 \OT1/ptm/m/n/12 Robotics 2016;1(1):eaag2048.  doi:10.1126/scirobotics.aag2048. 
  URL
  []
 
-) [8] (./main_paper.aux) ) 
+[8 <./Figures/wings2.png> <./Figures/wings.png>]) [9] (./main_paper.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 16493 strings out of 493014
- 337628 string characters out of 6133351
- 402976 words of memory out of 5000000
- 19621 multiletter control sequences out of 15000+600000
+ 16517 strings out of 493014
+ 338116 string characters out of 6133351
+ 403074 words of memory out of 5000000
+ 19642 multiletter control sequences out of 15000+600000
  40372 words of font info for 96 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,12n,67p,1450b,311s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/b
-ase/8r.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mex10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-mi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
-0.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12
-.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/
-local/texlive/2016/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texl
-ive/2016/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2016/t
-exmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main_paper.pdf (8 pages, 182522 bytes).
+{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
+xlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
+live/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texli
+ve/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texliv
+e/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive
+/2016/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2016/texmf
+-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2016/texmf-dist/font
+s/type1/urw/times/utmr8a.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/ur
+w/times/utmri8a.pfb>
+Output written on main_paper.pdf (9 pages, 184524 bytes).
 PDF statistics:
- 86 PDF objects out of 1000 (max. 8388607)
- 52 compressed objects within 1 object stream
+ 89 PDF objects out of 1000 (max. 8388607)
+ 54 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  48 words of extra memory for PDF output out of 10000 (max. 10000000)
 
