@@ -1,47 +1,47 @@
-This is BibTeX, Version 0.99d (TeX Live 2016)
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: main_paper.aux
 The style file: ./model3-num-names.bst.bst
 Database file #1: ./TeXFiles/FleaSlug.bib
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-You've used 6 entries,
+You've used 8 entries,
             3023 wiz_defined-function locations,
-            681 strings with 6459 characters,
-and the built_in function-call counts, 4697 in all, are:
-= -- 378
-> -- 122
-< -- 6
-+ -- 68
-- -- 32
-* -- 487
-:= -- 596
-add.period$ -- 29
-call.type$ -- 6
-change.case$ -- 36
-chr.to.int$ -- 6
-cite$ -- 6
-duplicate$ -- 383
-empty$ -- 379
-format.name$ -- 48
-if$ -- 939
+            696 strings with 6857 characters,
+and the built_in function-call counts, 6250 in all, are:
+= -- 502
+> -- 160
+< -- 7
++ -- 88
+- -- 42
+* -- 664
+:= -- 799
+add.period$ -- 37
+call.type$ -- 8
+change.case$ -- 46
+chr.to.int$ -- 8
+cite$ -- 8
+duplicate$ -- 517
+empty$ -- 512
+format.name$ -- 62
+if$ -- 1241
 int.to.chr$ -- 1
-int.to.str$ -- 7
-missing$ -- 67
-newline$ -- 51
-num.names$ -- 18
-pop$ -- 108
+int.to.str$ -- 9
+missing$ -- 89
+newline$ -- 63
+num.names$ -- 24
+pop$ -- 136
 preamble$ -- 1
-purify$ -- 30
+purify$ -- 40
 quote$ -- 0
-skip$ -- 144
+skip$ -- 177
 stack$ -- 0
-substring$ -- 312
-swap$ -- 263
+substring$ -- 441
+swap$ -- 342
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 36
+type$ -- 48
 warning$ -- 0
-while$ -- 25
+while$ -- 34
 width$ -- 0
-write$ -- 110
+write$ -- 141
