@@ -10,10 +10,10 @@ clear all;
 close all;
 clc;
 
-globel_refence_x = [1 0];
-globel_refence_y = [0 1];
+globel_refence_x = [1; 0];
+globel_refence_y = [0; 1];
 
-thigh_pos = [0 0];
+thigh_pos = [0; 0];
 thigh_len = 5;
 thigh_ang = 36.87*pi/180;
 
