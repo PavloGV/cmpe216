@@ -10,14 +10,23 @@ clear all;
 close all;
 clc;
 
-globel_refence_x = [1; 0];
-globel_refence_y = [0; 1];
+globel_refence_x = [1 0];
+globel_refence_y = [0 1];
 
-thigh_pos = [0; 0];
+hip0 = [0 0];
 thigh_len = 5;
 thigh_ang = 36.87*pi/180;
 
 shin_len = 0.03;
 shin_an = pi/3;
 
-thigh = Segment(thigh_pos, thigh_ang, thigh_len, globel_refence_x);
+l0 = 5;
+theta0 = 36.87*pi/180;
+
+flea_leg = [];
+
+thigh = Segment(hip0, thigh_ang, thigh_len, globel_refence_x);
+
+% leg1 = Leg(hip0,  );
+
+
