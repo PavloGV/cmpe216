@@ -13,18 +13,33 @@
 
 classdef Leg < handle
     properties
-        params = [];
+        params;
         origin = [-1 -1];
     end
     methods
         % Class constructor 
-        function leg_obj = Leg(origin, bone_list)
+        function leg_obj = Leg(first_joint, bone_list)
             if nargin > 0
-                leg_obj.origin = origin;
-                for i = 2:1:length(bone_list)
-                    % make a segment for each length specified in the list
-                    leg_obj.params(end-1) = Segment(bone_list(i).origin, bone_list(i).angle, bone_list(i-1).length, 2*bone_list(i-1).end_pos);
-                    % Segment(thigh_pos, thigh_ang, thigh_len, globel_refence_x);
+                    
+                if isempty(bone_list) == 0
+                    leg_obj.origin = first_joint;
+                    leg_obj(end).params = Segment(first_joint, ...
+                        bone_list(1).angle, bone_list(1).length, [1 0]);
+                    
+                    if length(bone_list) > 1
+                        for i = 2:1:length(bone_list)
+                            % Generate reference segments for additional joints
+                            temp_ref = [cos(bone_list(i-1).angle)...
+                                sin(bone_list(i-1).angle)]' + ...
+                                leg_obj.params(end).end_pos';
+                            
+                            leg_obj.params(end+1) = Segment(...
+                                leg_obj.params(end).end_pos, ...
+                                bone_list(i).angle, ...
+                                bone_list(i).length,...
+                                temp_ref');
+                        end
+                    end
                 end
             else
                 error('Not enough arguments provided');

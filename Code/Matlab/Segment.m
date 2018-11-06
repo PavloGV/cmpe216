@@ -19,14 +19,22 @@ classdef Segment < handle
     end
     methods
         % Class constructor 
-        function seg_obj = Segment(origin_position, segment_angle, segment_length, reference_end)
+        function seg_obj = Segment(origin_position, segment_angle, ...
+                segment_length, reference_end)
             if nargin > 0
-                seg_obj.ref_joint_pos = origin_position;    % Set reference segment starting point
-                seg_obj.ref_end_pos = reference_end;        % Set reference segment end point, should always be unit vector
                 
-                rot = [cos(segment_angle) -sin(segment_angle); sin(segment_angle) cos(segment_angle)];
-                rotated_segment = rot*(reference_end' - origin_position') + origin_position'; % Rotated segment from the reference vector
+                % Set reference segment starting point
+                % Set reference segment end point, should always be unit vector
+                seg_obj.ref_joint_pos = origin_position;    
+                seg_obj.ref_end_pos = reference_end;        
                 
+                % Rotate segment from the reference vector
+                rot = [ cos(segment_angle) -sin(segment_angle); 
+                        sin(segment_angle) cos(segment_angle)];
+                rotated_segment = rot*(reference_end'-origin_position')...
+                    + origin_position'; 
+                
+                % Set the segment object
                 seg_obj.joint_pos = origin_position;
                 seg_obj.angle = segment_angle;
                 seg_obj.length = segment_length;
