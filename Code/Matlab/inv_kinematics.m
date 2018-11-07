@@ -10,7 +10,7 @@ function angles = inv_kinematics(lengths, end_position)
     a1 = lengths(1);
     a2 = lengths(2);
     D = (x2^2 + y2^2 - a1^2 - a2^2)/(2*a1*a2);
-    theta2 = acos(D);
-    theta1 = atan(y2/x2)-atan((a2*sin(theta2))/(a1+a2*cos(theta2)));
-    angles = [theta1 theta2];
+    theta1 = acos(D);
+    theta0 = atan(y2/x2)-atan((a2*sin(theta1))/(a1+a2*cos(theta1)));
+    angles = [theta0 theta1];
 end
