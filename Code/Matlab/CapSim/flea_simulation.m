@@ -9,8 +9,45 @@ close all
 clear all
 clc
 
-% --- select model
-E  = m_flea;
+% Define mechanism, a group of capsules connected by joints
+% The following mechanism has three capsules
+E.mechanisms = [1 1 1]';  
+
+% Mechansisms can be free floating or anchored, this mechanism will be
+% floating
+E.anchors = [nan nan nan];
+
+% No joint limits on this mechanism
+E.a_constr = [];
+
+% Define shape of capsules
+E.radii = 0.1*  [0  4;...   % 1 Body
+                 4  1;...   % 2 Femur
+                 4  1];     % 3 Tibia
+
+% Mass
+E.masses = [0.5 0.05 0.05]';
+
+% Joint connections
+% capsule 1 is connected to 2 and 2 is connected to 3
+E.joints = [1 2; 2 3]; 
+
+% Joint locations
+E.j_locs = [0 1; -1 1; -1 1];
+                        
+% Joint angle limits - the flea will have none for now
+E.j_constr  = [2]'; % Which joints have angle limits ?
+E.a_lims    = [0 0]; % What are the angle limits
+
+% Colissions
+% No colissions between flea capsules
+E.collidable = false(3,3);
+
+% Drawing order of capsules
+E.draw_order = 1:3;
+
+% Walls
+E.walls       = [0 1 -5; 1 0 -5; -1 0 -5; 0 -1 -5];
 
 % --- global parameters
 E.skin            = 2;

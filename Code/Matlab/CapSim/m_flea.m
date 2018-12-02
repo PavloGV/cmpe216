@@ -29,11 +29,11 @@ E.masses = [0.5 0.05 0.05]';
 E.joints = [1 2; 2 3];
 
 % Joint locations
-E.j_locs = [-1 1; -1 1; -1 1];
+E.j_locs = [-1 1; -5 1; -1 1];
                         
 % Joint angle limits - the flea will have none for now
-E.j_constr = [2]';   % Which joints have limits?
-E.a_lims = [-pi/4 pi/4];      % What are the limits?
+E.j_constr  = [1 2]'; % Which joints have angle limits ?
+E.a_lims    = [-pi/2 pi/2; -pi/2 pi/2]; % What are the angle limits
 
 % Drawing order of capsules
 E.draw_order = 1:3;
