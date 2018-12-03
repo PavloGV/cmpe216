@@ -6,7 +6,7 @@
 % https://www.mathworks.com/matlabcentral/fileexchange/29249-capsim-the-matlab-physics-engine
 
 close all
-clear all
+clear all 
 clc
 
 % Define mechanism, a group of capsules connected by joints

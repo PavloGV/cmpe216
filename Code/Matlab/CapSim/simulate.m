@@ -17,10 +17,15 @@ function [X,L] = simulate(E,S)
     end
 
     S           = setOpts(D,S);
-
+    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % --- initial state
-    x           = S.x0(1:E.nm);
+    %x           = S.x0(1:E.nm)
     v           = S.x0(E.nm+1:end);
+    
+    %   [ x  y  ? ? ?]
+    x = [-2.9874 -4.7455 8.3968 0.3142 -3.1416]';
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
     % --- constants
@@ -32,6 +37,7 @@ function [X,L] = simulate(E,S)
        G.fig = figure();
     end
     figure(G.fig);
+    set(gcf, 'Position', [100 100 800 600]);
     clf;
 
     if 0 %OpenGl rarely works well
@@ -68,71 +74,78 @@ function [X,L] = simulate(E,S)
     L           = [];
     It          = [];
 
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
     while ~getappdata(G.fig,'Stop') && (time_steps <= S.N)
-       [xc,J]      = m2c(x,E);
+        % xc is the center of masses positions for the capsules
+        %  __         __
+        % | m0x m1x m2x | x
+        % | m0y m1y m2y | y
+        % | th0 th1 th2 | angle
+        %  --         --
+        [xc,J]      = m2c(x,E); 
 
-       % get spring force
-       cp = getappdata(G.fig,'cursorPos');
-       u  = zeros(3*n,1);
-       if ~isempty(cp)
-          if isnan(w)
-             % find nearest point on nearest capsule
-             [w,rel] = nearest(xc, E.radii, cp);
-          end
-          xr             = [cos(xc(3,w)) -sin(xc(3,w)); sin(xc(3,w)) cos(xc(3,w))]*rel;
-          xw             = xc(1:2,w) + xr;
-          cursor         = [cp' xw];
-          xf             = cp'-xw;
-          u(3*w-2:3*w)   = D.spring*[xf; xf'*[0 -1;1 0]*xr];
-       else
-          cursor         = [];
-          w              = nan;
-       end
+        % get spring force
+        cp = getappdata(G.fig,'cursorPos');
+        u  = zeros(3*n,1); % I think this is the input force or impulse
+        if ~isempty(cp)
+            if isnan(w)
+                % find nearest point on nearest capsule
+                [w,rel] = nearest(xc, E.radii, cp);
+            end
+            xr             = [cos(xc(3,w)) -sin(xc(3,w)); sin(xc(3,w)) cos(xc(3,w))]*rel;
+            xw             = xc(1:2,w) + xr;
+            cursor         = [cp' xw];
+            xf             = cp'-xw;
+            u(3*w-2:3*w)   = D.spring*[xf; xf'*[0 -1;1 0]*xr];
+        else
+            cursor         = [];
+            w              = nan;
+        end
 
-       % calculate info data
-       energy            = 0.5*full(v'*J'*E.M*J*v);
-       info              = sprintf('Energy: %-6.3g\nDynamics Calculation Time: %-4.1fms\nTotal Time Steps: %d',energy,1000*i_time,time_steps);
+        % calculate info data
+        energy            = 0.5*full(v'*J'*E.M*J*v);
+        info              = sprintf('Energy: %-6.3g\nDynamics Calculation Time: %-4.1fms\nTotal Time Steps: %d',energy,1000*i_time,time_steps);
 
 
-       % integrate
-       tic;
-       [x,v,lam,c_points]   = dynamics(x,v,u,E);
+        % integrate (aka the UPDATE)
+        tic;
+        [x,v,lam,c_points]   = dynamics(x,v,u,E);
+        
+        % time measurement
+        i_time               = toc;
+        if time_steps < S.p_steps % move to right place
+            v = zeros(size(v));
+        end   
 
-       % time measurement
-       i_time               = toc;
-       if time_steps < S.p_steps % move to right place
-          v = zeros(size(v));
-       end   
+        % draw collision points?
+        if ~S.c_points
+            c_points = zeros(0,2);
+        end
 
-       % draw collision points?
-       if ~S.c_points
-          c_points = zeros(0,2);
-       end
+        % draw (previous) state
+        drawFrame(G.ax1, E, xc, c_points, cursor, info);   
 
-       % draw (previous) state
-       drawFrame(G.ax1, E, xc, c_points, cursor, info);   
+        % save traces
+        X           = [X [x;v]];
+        L           = [L lam];
+        It          = [It i_time];
 
-       % save traces
-       X           = [X [x;v]];
-       L           = [L lam];
-       It          = [It i_time];
+        if S.graphs
+            if size(X,2) > 1
+                tspan = max(1,size(X,2)-round(8/E.dt)):size(X,2);
+                set(G.fig,'currentaxes',G.ax2);      
+                plot(X(1:size(x,1),tspan)');
+                set(G.ax2,'Xtick',[],'Ytick',[],'Xlim',[1 length(tspan)]);
+                set(G.fig,'currentaxes',G.ax3);      
+                plot(L(:,tspan)');
+                % set(G.ax3,'Xtick',[],'Ytick',[],'Xlim',[1 length(tspan)]);
+                set(G.ax3,'Xtick',[],'Xlim',[1 length(tspan)]);
+                set(G.fig,'currentaxes',G.ax1);
+            end
+        end
 
-       if S.graphs
-          if size(X,2) > 1
-             tspan = max(1,size(X,2)-round(8/E.dt)):size(X,2);
-             set(G.fig,'currentaxes',G.ax2);      
-             plot(X(1:size(x,1),tspan)');
-             set(G.ax2,'Xtick',[],'Ytick',[],'Xlim',[1 length(tspan)]);
-             set(G.fig,'currentaxes',G.ax3);      
-             plot(L(:,tspan)');
-    %          set(G.ax3,'Xtick',[],'Ytick',[],'Xlim',[1 length(tspan)]);
-             set(G.ax3,'Xtick',[],'Xlim',[1 length(tspan)]);
-             set(G.fig,'currentaxes',G.ax1);
-          end
-       end
-
-       drawnow;
-       time_steps = time_steps+1;
+        drawnow;
+        time_steps = time_steps+1;
     end
 
 fprintf('Average dynamics time: %-4.1fms\n',1000*mean(It));
