@@ -91,7 +91,7 @@ function [X,L] = simulate(E,S)
 
        % calculate info data
        energy            = 0.5*full(v'*J'*E.M*J*v);
-       info              = sprintf('Energy: %-6.3g\nDynamics Calculation Time: %-4.1fms\nTotal Time Steps: %d',energy,1000*i_time,time_steps);
+       info              = sprintf('Energy: %-6.3g\nDynamics Calculation Time Steps: %-4.1fms\nTotal Time Elapsed: %-4.1fms',energy,1000*i_time,time_steps);
 
 
        % integrate
