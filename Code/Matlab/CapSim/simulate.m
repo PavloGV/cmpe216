@@ -1,16 +1,16 @@
 function [X,L] = simulate(E,S)
 
     % default values
-    nm          = E.nm;              % number of state variables
-    D.x0        = [2*randn(nm,1);... % initial states
+    nm          = E.nm;                 % number of state variables
+    D.x0        = [2*randn(nm,1);...    % initial states
                  0.1*randn(nm,1)];   
-    D.N         = 1000;              % number of time steps
-    D.policy    = @(x) x;            % policy (controller)
-    D.graphs    = 0;                 % draw graphs ?
-    D.frames    = 1;                 % draw frames (simulation) ?
-    D.spring    = 20;                % spring constant
-    D.p_steps   = 5;                 % constraint projection steps
-    D.c_points  = 0;                 % draw collision points?
+    D.N         = 10000;                % number of time steps
+    D.policy    = @(x) x;               % policy (controller)
+    D.graphs    = 0;                    % draw graphs ?
+    D.frames    = 1;                    % draw frames (simulation) ?
+    D.spring    = 20;                   % spring constant
+    D.p_steps   = 5;                    % constraint projection steps
+    D.c_points  = 0;                    % draw collision points?
 
     if nargin == 1
        S  = struct(); % empty structure - use defaults
@@ -26,7 +26,6 @@ function [X,L] = simulate(E,S)
     %   [ x  y  ? ? ?]
     x = [-2.9874 -4.7455 8.3968 0.3142 -3.1416]';
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
     % --- constants
     n           = length(E.masses);
@@ -73,7 +72,31 @@ function [X,L] = simulate(E,S)
     X           = [];
     L           = [];
     It          = [];
-
+    
+    %%%% Impulse for Flea Jump
+    % | x1     x2     ... xN     |
+    % | y1     y2     ... yN     |
+    % | angle1 angle2 ... angleN |
+    l_angle = 90*pi/180;            % angle of launch in radians
+    i_mag = 400;                    % impulse magnitude
+    i_mag_x = i_mag*cos(l_angle);
+    i_mag_y = i_mag*sin(l_angle);
+    i_train = zeros(3, S.N);
+%     i_train(:,S.N/16 - 2) = [i_mag_x i_mag_y 0]';
+%     i_train(:,S.N/16 - 1) = [i_mag_x i_mag_y 0]';
+%     i_train(:,S.N/16) = [i_mag_x i_mag_y 0]';
+%     i_train(:,S.N/16 + 1) = [i_mag_x i_mag_y 0]';
+%     i_train(:,S.N/16 + 2) = [i_mag_x i_mag_y 0]';
+    %%%% Joint angle change for Flea Jump
+    ang_train = zeros(1, S.N);
+    theta = 0;
+    ang_train(S.N/4 - 2) = theta;
+    ang_train(S.N/4- 1) = theta;
+    ang_train(S.N/4) = theta;
+    ang_train(S.N/4 + 1) = theta;
+    ang_train(S.N/4 + 2) = theta;
+    %%%%
+    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
     while ~getappdata(G.fig,'Stop') && (time_steps <= S.N)
         % xc is the center of masses positions for the capsules
@@ -86,7 +109,10 @@ function [X,L] = simulate(E,S)
 
         % get spring force
         cp = getappdata(G.fig,'cursorPos');
-        u  = zeros(3*n,1); % I think this is the input force or impulse
+        u  = zeros(3*n,1); % I think this is the input force or impulse 
+        % in the case of the flea it is a 9 by 1 vector or three 3 by 1 
+        % vectors for each capsulse (as there are only 3 capsules for the 
+        % flea each 3 by 1 is as follows: [vx vy angle_rate]'
         if ~isempty(cp)
             if isnan(w)
                 % find nearest point on nearest capsule
@@ -97,14 +123,38 @@ function [X,L] = simulate(E,S)
             cursor         = [cp' xw];
             xf             = cp'-xw;
             u(3*w-2:3*w)   = D.spring*[xf; xf'*[0 -1;1 0]*xr];
+%             if (mod(xc(3,2), 2*pi) < pi && mod(xc(3,3), 2*pi) < pi)
+%                 u(6) = 10;
+%                 u(9) = -10;
+%             elseif (mod(xc(3,2), 2*pi) < pi && mod(xc(3,3), 2*pi) > pi)
+%                 u(6) = 10;
+%                 u(9) = -10;
+%             elseif (mod(xc(3,2), 2*pi) > pi && mod(xc(3,3), 2*pi) < pi)
+%                 u(6) = -10;
+%                 u(9) = 10;
+%             elseif (mod(xc(3,2), 2*pi) > pi && mod(xc(3,3), 2*pi) > pi)
+%                 u(6) = -10;
+%                 u(9) = 10;
+%             end
+            [mod(xc(3,2), 2*pi) mod(xc(3,3), 2*pi)]
         else
+            %%%%
+            u(1) = i_train(1,time_steps+1);
+            u(2) = i_train(2,time_steps+1);
+%             u(6) = ang_train(time_steps + 1);
+%             u(9) = ang_train(time_steps + 1);
+            %%%%
             cursor         = [];
             w              = nan;
         end
+        
+        %%%% Flea Slug Brain
+        
+        %%%%
 
         % calculate info data
-        energy            = 0.5*full(v'*J'*E.M*J*v);
-        info              = sprintf('Energy: %-6.3g\nDynamics Calculation Time: %-4.1fms\nTotal Time Steps: %d',energy,1000*i_time,time_steps);
+        energy = 0.5*full(v'*J'*E.M*J*v);
+        info  = sprintf('Energy: %-6.3g\nDynamics Calculation Time: %-4.1fms\nTotal Time Steps: %d',energy,1000*i_time,time_steps);
 
 
         % integrate (aka the UPDATE)
@@ -147,8 +197,12 @@ function [X,L] = simulate(E,S)
         drawnow;
         time_steps = time_steps+1;
     end
-
-fprintf('Average dynamics time: %-4.1fms\n',1000*mean(It));
+    
+    %%%% Plot Results
+    
+    %%%%
+    
+    fprintf('Average dynamics time: %-4.1fms\n',1000*mean(It));
 
 function [w, rel] = nearest(xc, radii, cp)
     n        = size(xc,2);
@@ -197,7 +251,7 @@ function [w, rel] = nearest(xc, radii, cp)
     rel(:,i>2)= rel([3:4 1:2]',i>2);                % [4 na] reorder to [e1; e2]
 
     [dum,w]  = min(k);                              % closest capsule
-rel      = expm([0 1;-1 0]*a(w))*rel(1:2,w);    % rotate rel to egocentric coordinates
+    rel      = expm([0 1;-1 0]*a(w))*rel(1:2,w);    % rotate rel to egocentric coordinates
 
 
 
@@ -210,17 +264,17 @@ function fDown(src, evnt)
     if cp(1) > xlim(1) && cp(1) < xlim(2) && cp(2) > ylim(1) && cp(2) < ylim(2)
        set(src, 'WindowButtonMotionFcn', @fMove);
        setappdata(src, 'cursorPos', cp);
-end
+    end
 
 function fMove(src, evnt)
     h = findobj(src, 'tag', 'simulation');
     cp = get(h, 'CurrentPoint');  
     cp = cp(1, 1:2);
-setappdata(src, 'cursorPos', cp); 
+    setappdata(src, 'cursorPos', cp); 
    
 function fUp(src, evnt)
     set(src, 'WindowButtonMotionFcn', '');
-setappdata(src, 'cursorPos', ''); 
+    setappdata(src, 'cursorPos', ''); 
 
 function fKey(fig, evnt)
     if strcmp(evnt.Key, 'escape')
