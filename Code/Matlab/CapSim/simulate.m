@@ -10,6 +10,31 @@ function [X,L] = simulate(E,S)
     D.x0(3) = 0.1;                      % body angle initial
     D.x0(4) = 0.3142;
     D.x0(5) = -3.1416;
+    % object 4
+    D.x0(6) = -2;                       % x location of step 1 of staircase
+    D.x0(7) = -abs(E.walls(1,3));       % y location of step 1 of staircase
+    D.x0(8) = 0;                        % angle initial
+    % object 5
+    D.x0(9) = 2;                        % x location of step 2 of staircase
+    D.x0(10) = -abs(E.walls(1,3));      % y location of step 2 of staircase
+    D.x0(11) = 0;                     	
+    % object 6
+    D.x0(12) = 6;                       % x location of step 3 of staircase
+    D.x0(13) = -abs(E.walls(1,3));      % y location of step 3 of staircase
+    D.x0(14) = 0;
+    % object 7
+    D.x0(15) = 2;                       % x location of step 4 of staircase
+    D.x0(16) = -abs(E.walls(1,3))+3;    % y location of step 4 of staircase
+    D.x0(17) = 0;
+    % object 8
+    D.x0(18) = 6;                       % x location of step 5 of staircase
+    D.x0(19) = -abs(E.walls(1,3))+3;    % y location of step 5 of staircase
+    D.x0(20) = 0;
+    % object 9
+    D.x0(21) = 6;                       % x location of step 5 of staircase
+    D.x0(22) = -abs(E.walls(1,3))+5;    % y location of step 5 of staircase
+    D.x0(23) = 0;
+    
     %%%%
     D.N         = 10000;                % number of time steps
     D.policy    = @(x) x;               % policy (controller)
@@ -76,11 +101,27 @@ function [X,L] = simulate(E,S)
     L           = [];
     It          = [];
     
+    % ---- data buffers
+    a_list = zeros(3,S.N);      % body angle    1, 2, 3, ... , N
+                                % hip angle     1, 2, 3. ... , N
+                                % knee angle    1, 2, 3, ... , N
+    d_list = zeros(2,S.N);
+    e_list = zeros(1<S.N);
+    
     %%%% Impulse for Flea Jump
     % | x1     x2     ... xN     |
     % | y1     y2     ... yN     |
     % | angle1 angle2 ... angleN |
     %%%%
+    
+    gif_flag = 0;
+    
+    % to make gif
+    if (gif_flag == 1)
+        f = G.fig;
+        axis tight manual
+        filename = 'testAnimated.gif'
+    end
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
     while ~getappdata(G.fig,'Stop') && (time_steps <= S.N)
@@ -132,28 +173,38 @@ function [X,L] = simulate(E,S)
         if abs(theta_knee) > pi/8
             u(9) = u(9) + k_angle;
         end
-       
         % Have hip spring back
         h_angle = 20;
         if theta_hip > pi/4 && theta_hip < pi/2
             u(6) = u(6) - h_angle;
-        elseif theta_hip >= pi/2
+        elseif theta_hip >= 3*pi/4
             u(6) = u(6) + h_angle/2;
         end
         
         % Have body stay level
-%         b_angle = 5;
-%         if xc(3,1) >= body_or
-%             u(3) = u(3) - b_angle;
-%         elseif xc(3,1) < body_or
-%             u(3) = u(3) + b_angle;
-%         end
-        [xc(3,1) theta_hip theta_knee]
+        %         b_angle = 5;
+        %         if xc(3,1) >= body_or
+        %             u(3) = u(3) - b_angle;
+        %         elseif xc(3,1) < body_or
+        %             u(3) = u(3) + b_angle;
+        %         end
+        
+        % Record angles
+        a_list(:,time_steps+1) = [xc(3,1) theta_hip theta_knee]';
+        
+        % Record movement of center of mass
+        d_list(:,time_steps+1) = [xc(1,1) xc(2,1)]';
         % pause(0.1)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
         % calculate info data
         energy = 0.5*full(v'*J'*E.M*J*v);
+        
+        %%%%
+        % record energy
+        e_list(time_steps+1) = energy;
+        %%%%
+        
         info  = sprintf('Kinetic Energy: %-6.3g Joules \nDynamics Calculation Time: %-4.1fms\nTotal Time Steps: %d',energy,1000*i_time,time_steps);
 
 
@@ -196,10 +247,49 @@ function [X,L] = simulate(E,S)
 
         drawnow;
         time_steps = time_steps+1;
+        
+        % for gif
+        if (gif_flag == 1)
+            frame = getframe(f); 
+            im = frame2im(frame); 
+            [imind,cm] = rgb2ind(im,256); 
+
+                  % Write to the GIF File 
+              if time_steps == 1 
+                  imwrite(imind,cm,filename,'gif', 'Loopcount',inf); 
+              else 
+                  imwrite(imind,cm,filename,'gif','WriteMode','append'); 
+              end 
+        end
     end
     
     %%%% Plot Results
+    figure(2)
+    hold on
+    plot(1:1:time_steps, a_list(1,1:time_steps))
+    plot(1:1:time_steps, a_list(2,1:time_steps))
+    plot(1:1:time_steps, a_list(3,1:time_steps))
+    legend('Body', 'Body & Femur', 'Femur and Tibia');
+    ylabel('Angle (Radians)');
+    xlabel('Time step');
+    title('Leg Component Angles Over Time');
+    hold off
     
+    figure(3)
+    hold on
+    plot(d_list(1,1:time_steps), d_list(2,1:time_steps))
+    ylabel('Y position');
+    xlabel('X position');
+    title('Position');
+    hold off
+    
+    figure(4)
+    hold on
+    plot((1:1:time_steps), e_list(1:time_steps))
+    ylabel('Joules');
+    xlabel('Time Steps');
+    title('System Kinetic Energy');
+    hold off
     %%%%
     
     fprintf('Average dynamics time: %-4.1fms\n',1000*mean(It));

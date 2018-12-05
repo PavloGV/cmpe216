@@ -52,18 +52,21 @@ f_height = 7;
 E.walls = [0 1 -f_height; 1 0 -f_width; -1 0 -f_width; 0 -1 -f_height];
 
 % Add a "pebble" or capsule staricase 
-ns = 1;
+ns = 6;	% number of blocks for steps, hence ns
 n = length(E.mechanisms);
 E.mechanisms  = [E.mechanisms; [2:ns+1]'];
 E.anchors     = [E.anchors; nan(ns,n)];
-E.radii       = [E.radii; sort((rand(ns,2)+0.3)/sqrt(ns),2,'descend')];
+E.radii       = [E.radii; ones(ns,2)];
 E.masses      = pi*E.radii(:,2).^2 + 4*E.radii(:,1).*E.radii(:,2);
 E.draw_order  = [E.draw_order (n+1:n+ns)];
-n           = n+ns; 
-E.collidable            = false(n,n);
-E.collidable(1,n) = true;
-E.collidable(2,n) = true;
-E.collidable(3,n) = true;
+n             = n+ns; 
+E.collidable  = false(n,n);
+E.collidable(1,[4 5 6 7 8 9]) = true;
+E.collidable(2,[4 5 6 7 8 9]) = true;
+E.collidable(3,[4 5 6 7 8 9]) = true;
+E.collidable(5, 7)  = true;
+E.collidable(6, 8)  = true;
+E.collidable(8, 9)  = true;
 
 % --- global parameters
 E.skin            = 2;
