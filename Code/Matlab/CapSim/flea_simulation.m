@@ -47,7 +47,9 @@ E.collidable = false(3,3);
 E.draw_order = 1:3;
 
 % Walls
-E.walls       = [0 1 -5; 1 0 -5; -1 0 -5; 0 -1 -5];
+f_width = 10;
+f_height = 7;
+E.walls       = [0 1 -f_height; 1 0 -f_width; -1 0 -f_width; 0 -1 -f_height];
 
 % --- global parameters
 E.skin            = 2;
@@ -58,11 +60,11 @@ E.friction_model  = 1;
 E.solver          = 1;
 E.k_drag          = .1;
 E.margin          = 1;
-E.walls(:,3)      = E.walls(:,3)-1e-5;
+E.walls(:,3)      = E.walls(:,3)-1e-5
 E.k_grav          = [0 -9.8 0];
 
 % --- initialize
 E                 = initE(E);
 
-% simulate
+% simulate 
 simulate(E);

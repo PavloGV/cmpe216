@@ -24,7 +24,7 @@ function [X,L] = simulate(E,S)
     v           = S.x0(E.nm+1:end);
     
     %   [ x  y  ? ? ?]
-    x = [-2.9874 -4.7455 8.3968 0.3142 -3.1416]';
+    x = [-abs(E.walls(2,3)) -abs(E.walls(1,3)) 8.3968 0.3142 -3.1416]';
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % --- constants
@@ -36,7 +36,7 @@ function [X,L] = simulate(E,S)
        G.fig = figure();
     end
     figure(G.fig);
-    set(gcf, 'Position', [100 100 800 600]);
+    set(gcf, 'Position', [800 50 800 600]);
     clf;
 
     if 0 %OpenGl rarely works well
@@ -95,6 +95,10 @@ function [X,L] = simulate(E,S)
     ang_train(S.N/4) = theta;
     ang_train(S.N/4 + 1) = theta;
     ang_train(S.N/4 + 2) = theta;
+    
+    %%%%
+    last_m0x = 0;
+    e_delta = 0.5;
     %%%%
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
@@ -107,6 +111,8 @@ function [X,L] = simulate(E,S)
         %  --         --
         [xc,J]      = m2c(x,E); 
 
+        theta_knee = abs(xc(3,2)-xc(3,3))-pi;
+        
         % get spring force
         cp = getappdata(G.fig,'cursorPos');
         u  = zeros(3*n,1); % I think this is the input force or impulse 
@@ -114,47 +120,56 @@ function [X,L] = simulate(E,S)
         % vectors for each capsulse (as there are only 3 capsules for the 
         % flea each 3 by 1 is as follows: [vx vy angle_rate]'
         if ~isempty(cp)
-            if isnan(w)
-                % find nearest point on nearest capsule
-                [w,rel] = nearest(xc, E.radii, cp);
-            end
-            xr             = [cos(xc(3,w)) -sin(xc(3,w)); sin(xc(3,w)) cos(xc(3,w))]*rel;
-            xw             = xc(1:2,w) + xr;
-            cursor         = [cp' xw];
-            xf             = cp'-xw;
-            u(3*w-2:3*w)   = D.spring*[xf; xf'*[0 -1;1 0]*xr];
-%             if (mod(xc(3,2), 2*pi) < pi && mod(xc(3,3), 2*pi) < pi)
-%                 u(6) = 10;
-%                 u(9) = -10;
-%             elseif (mod(xc(3,2), 2*pi) < pi && mod(xc(3,3), 2*pi) > pi)
-%                 u(6) = 10;
-%                 u(9) = -10;
-%             elseif (mod(xc(3,2), 2*pi) > pi && mod(xc(3,3), 2*pi) < pi)
-%                 u(6) = -10;
-%                 u(9) = 10;
-%             elseif (mod(xc(3,2), 2*pi) > pi && mod(xc(3,3), 2*pi) > pi)
-%                 u(6) = -10;
-%                 u(9) = 10;
+%             if isnan(w)
+%                 % find nearest point on nearest capsule
+%                 [w,rel] = nearest(xc, E.radii, cp);
 %             end
-            [mod(xc(3,2), 2*pi) mod(xc(3,3), 2*pi)]
-        else
+%             xr             = [cos(xc(3,w)) -sin(xc(3,w)); sin(xc(3,w)) cos(xc(3,w))]*rel;
+%             xw             = xc(1:2,w) + xr;
+%             cursor         = [cp' xw];
+%             xf             = cp'-xw;
+%             u(3*w-2:3*w)   = D.spring*[xf; xf'*[0 -1;1 0]*xr];
             %%%%
+            jump_mag = 50;
+            if (theta_knee < pi)
+                u(6) = jump_mag/2;
+                u(9) = -jump_mag;
+            end
+            %%%%
+        else
+            %%%% if impulse train is uncommented above
             u(1) = i_train(1,time_steps+1);
             u(2) = i_train(2,time_steps+1);
-%             u(6) = ang_train(time_steps + 1);
-%             u(9) = ang_train(time_steps + 1);
             %%%%
             cursor         = [];
             w              = nan;
         end
         
         %%%% Flea Slug Brain
+        % Have knee spring back
+        h_angle = 10;
+        if abs(theta_knee) > pi/8
+            u(9) = u(9) + h_angle;
+        end
         
+        %%%% 
+        % pause(0.1)
+        %%%%
+        
+        % Have body stay level
+        %[xc(1,1) xc(1,2)]
+        k_angle = 100;
+%         if xc(1,1) < xc(1,2)
+%             u(6) = u(6) - k_angle;
+%         end
+        if xc(3,2) > pi/4
+            u(6) = u(6) - k_angle;
+        end
         %%%%
 
         % calculate info data
         energy = 0.5*full(v'*J'*E.M*J*v);
-        info  = sprintf('Energy: %-6.3g\nDynamics Calculation Time: %-4.1fms\nTotal Time Steps: %d',energy,1000*i_time,time_steps);
+        info  = sprintf('Kinetic Energy: %-6.3g Joules \nDynamics Calculation Time: %-4.1fms\nTotal Time Steps: %d',energy,1000*i_time,time_steps);
 
 
         % integrate (aka the UPDATE)
