@@ -49,18 +49,32 @@ E.draw_order = 1:3;
 % Walls
 f_width = 10;
 f_height = 7;
-E.walls       = [0 1 -f_height; 1 0 -f_width; -1 0 -f_width; 0 -1 -f_height];
+E.walls = [0 1 -f_height; 1 0 -f_width; -1 0 -f_width; 0 -1 -f_height];
+
+% Add a "pebble" or capsule staricase 
+ns = 1;
+n = length(E.mechanisms);
+E.mechanisms  = [E.mechanisms; [2:ns+1]'];
+E.anchors     = [E.anchors; nan(ns,n)];
+E.radii       = [E.radii; sort((rand(ns,2)+0.3)/sqrt(ns),2,'descend')];
+E.masses      = pi*E.radii(:,2).^2 + 4*E.radii(:,1).*E.radii(:,2);
+E.draw_order  = [E.draw_order (n+1:n+ns)];
+n           = n+ns; 
+E.collidable            = false(n,n);
+E.collidable(1,n) = true;
+E.collidable(2,n) = true;
+E.collidable(3,n) = true;
 
 % --- global parameters
 E.skin            = 2;
 E.stretch         = 2;
 E.k_fric          = 0.3;
-E.RK              = 0;
+E.RK              = 0; 
 E.friction_model  = 1;
 E.solver          = 1;
 E.k_drag          = .1;
 E.margin          = 1;
-E.walls(:,3)      = E.walls(:,3)-1e-5
+E.walls(:,3)      = E.walls(:,3)-1e-5;
 E.k_grav          = [0 -9.8 0];
 
 % --- initialize

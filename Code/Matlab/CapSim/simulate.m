@@ -3,7 +3,14 @@ function [X,L] = simulate(E,S)
     % default values
     nm          = E.nm;                 % number of state variables
     D.x0        = [2*randn(nm,1);...    % initial states
-                 0.1*randn(nm,1)];   
+                 0.1*randn(nm,1)]; 
+    %%%%         
+    D.x0(1) = -abs(E.walls(2,3));       % x position initial
+    D.x0(2) = -abs(E.walls(1,3));       % y position initial
+    D.x0(3) = 0.1;                      % body angle initial
+    D.x0(4) = 0.3142;
+    D.x0(5) = -3.1416;
+    %%%%
     D.N         = 10000;                % number of time steps
     D.policy    = @(x) x;               % policy (controller)
     D.graphs    = 0;                    % draw graphs ?
@@ -20,13 +27,9 @@ function [X,L] = simulate(E,S)
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % --- initial state
-    %x           = S.x0(1:E.nm)
+    x           = S.x0(1:E.nm);
     v           = S.x0(E.nm+1:end);
     
-    %   [ x  y  ? ? ?]
-    x = [-abs(E.walls(2,3)) -abs(E.walls(1,3)) 8.3968 0.3142 -3.1416]';
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
     % --- constants
     n           = length(E.masses);
 
@@ -77,28 +80,6 @@ function [X,L] = simulate(E,S)
     % | x1     x2     ... xN     |
     % | y1     y2     ... yN     |
     % | angle1 angle2 ... angleN |
-    l_angle = 90*pi/180;            % angle of launch in radians
-    i_mag = 400;                    % impulse magnitude
-    i_mag_x = i_mag*cos(l_angle);
-    i_mag_y = i_mag*sin(l_angle);
-    i_train = zeros(3, S.N);
-%     i_train(:,S.N/16 - 2) = [i_mag_x i_mag_y 0]';
-%     i_train(:,S.N/16 - 1) = [i_mag_x i_mag_y 0]';
-%     i_train(:,S.N/16) = [i_mag_x i_mag_y 0]';
-%     i_train(:,S.N/16 + 1) = [i_mag_x i_mag_y 0]';
-%     i_train(:,S.N/16 + 2) = [i_mag_x i_mag_y 0]';
-    %%%% Joint angle change for Flea Jump
-    ang_train = zeros(1, S.N);
-    theta = 0;
-    ang_train(S.N/4 - 2) = theta;
-    ang_train(S.N/4- 1) = theta;
-    ang_train(S.N/4) = theta;
-    ang_train(S.N/4 + 1) = theta;
-    ang_train(S.N/4 + 2) = theta;
-    
-    %%%%
-    last_m0x = 0;
-    e_delta = 0.5;
     %%%%
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
@@ -110,8 +91,9 @@ function [X,L] = simulate(E,S)
         % | th0 th1 th2 | angle
         %  --         --
         [xc,J]      = m2c(x,E); 
-
         theta_knee = abs(xc(3,2)-xc(3,3))-pi;
+        theta_hip = abs(mod(xc(3,2), 2*pi));
+        body_or = 0.1;
         
         % get spring force
         cp = getappdata(G.fig,'cursorPos');
@@ -130,42 +112,45 @@ function [X,L] = simulate(E,S)
 %             xf             = cp'-xw;
 %             u(3*w-2:3*w)   = D.spring*[xf; xf'*[0 -1;1 0]*xr];
             %%%%
-            jump_mag = 50;
-            if (theta_knee < pi)
-                u(6) = jump_mag/2;
+            jump_mag = 40;
+            if (theta_knee < pi) % Jumping allowed when knee is NOT fully extended
+                u(6) = 2*jump_mag/3;
                 u(9) = -jump_mag;
             end
             %%%%
         else
             %%%% if impulse train is uncommented above
-            u(1) = i_train(1,time_steps+1);
-            u(2) = i_train(2,time_steps+1);
             %%%%
             cursor         = [];
             w              = nan;
         end
         
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%% Flea Slug Brain
         % Have knee spring back
-        h_angle = 10;
+        k_angle = 10;
         if abs(theta_knee) > pi/8
-            u(9) = u(9) + h_angle;
+            u(9) = u(9) + k_angle;
         end
-        
-        %%%% 
-        % pause(0.1)
-        %%%%
+       
+        % Have hip spring back
+        h_angle = 20;
+        if theta_hip > pi/4 && theta_hip < pi/2
+            u(6) = u(6) - h_angle;
+        elseif theta_hip >= pi/2
+            u(6) = u(6) + h_angle/2;
+        end
         
         % Have body stay level
-        %[xc(1,1) xc(1,2)]
-        k_angle = 100;
-%         if xc(1,1) < xc(1,2)
-%             u(6) = u(6) - k_angle;
+%         b_angle = 5;
+%         if xc(3,1) >= body_or
+%             u(3) = u(3) - b_angle;
+%         elseif xc(3,1) < body_or
+%             u(3) = u(3) + b_angle;
 %         end
-        if xc(3,2) > pi/4
-            u(6) = u(6) - k_angle;
-        end
-        %%%%
+        [xc(3,1) theta_hip theta_knee]
+        % pause(0.1)
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
         % calculate info data
         energy = 0.5*full(v'*J'*E.M*J*v);
