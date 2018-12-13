@@ -1,4 +1,4 @@
-function [X,L] = simulate(E,S)
+function [X,L,j_list] = simulate(E,S)
 
     % default values
     nm          = E.nm;                 % number of state variables
@@ -106,16 +106,28 @@ function [X,L] = simulate(E,S)
                                 % hip angle     1, 2, 3. ... , N
                                 % knee angle    1, 2, 3, ... , N
     d_list = zeros(2,S.N);
-    e_list = zeros(1<S.N);
-    
+    e_list = zeros(1,S.N);
+    j_p_list = zeros(1,S.N);
+    j_list = zeros(1,S.N);
     %%%% Impulse for Flea Jump
     % | x1     x2     ... xN     |
     % | y1     y2     ... yN     |
     % | angle1 angle2 ... angleN |
     %%%%
     
+    %%%% Flags for gif and jump agilty recording
     gif_flag = 0;
+    j_flag = 1;     % reduces number of time steps
     
+    
+    
+    time_limit = S.N;
+    
+    % record jump agility
+    if (j_flag == 1)
+        time_limit = 300
+    end
+        
     % to make gif
     if (gif_flag == 1)
         f = G.fig;
@@ -124,7 +136,7 @@ function [X,L] = simulate(E,S)
     end
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
-    while ~getappdata(G.fig,'Stop') && (time_steps <= S.N)
+    while ~getappdata(G.fig,'Stop') && (time_steps <= time_limit)
         % xc is the center of masses positions for the capsules
         %  __         __
         % | m0x m1x m2x | x
@@ -194,6 +206,9 @@ function [X,L] = simulate(E,S)
         
         % Record movement of center of mass
         d_list(:,time_steps+1) = [xc(1,1) xc(2,1)]';
+        
+        % Record Jump agility
+        j_list(time_steps+1) =  max_height/(t_stance + t_apogee);
         % pause(0.1)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
