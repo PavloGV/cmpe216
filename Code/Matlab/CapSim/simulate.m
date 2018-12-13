@@ -1,4 +1,4 @@
-function [X,L,j_list] = simulate(E,S)
+function [X,L,max_height,t_stance,t_apogee] = simulate(E,S)
 
     % default values
     nm          = E.nm;                 % number of state variables
@@ -107,7 +107,19 @@ function [X,L,j_list] = simulate(E,S)
                                 % knee angle    1, 2, 3, ... , N
     d_list = zeros(2,S.N);
     e_list = zeros(1,S.N);
-    j_p_list = zeros(1,S.N);
+    j_p_list = zeros(2,S.N);
+    
+    t_stance_flag = 0;
+    t_apogee_flag = 0;
+    
+    jump_mag = 40;
+    t_stance = 40;
+    t_offset = 10;
+    for (i = 1:1:t_stance)
+        j_p_list(1, i+t_offset) = 2*jump_mag/3;
+        j_p_list(2, i+t_offset) = -jump_mag;
+    end
+    
     j_list = zeros(1,S.N);
     %%%% Impulse for Flea Jump
     % | x1     x2     ... xN     |
@@ -119,13 +131,14 @@ function [X,L,j_list] = simulate(E,S)
     gif_flag = 0;
     j_flag = 1;     % reduces number of time steps
     
-    
+    t_apogee = 0;
+    max_height = 0;
     
     time_limit = S.N;
     
     % record jump agility
     if (j_flag == 1)
-        time_limit = 300
+        time_limit = 200;
     end
         
     % to make gif
@@ -170,12 +183,16 @@ function [X,L,j_list] = simulate(E,S)
                 u(6) = 2*jump_mag/3;
                 u(9) = -jump_mag;
             end
-            %%%%
         else
             %%%% if impulse train is uncommented above
             %%%%
             cursor         = [];
             w              = nan;
+        end
+        %%%% for jump agjility testing
+        if (j_flag == 1) && (theta_knee < pi) % Jumping allowed when knee is NOT fully extended
+            u(6) = j_p_list(1,time_steps+1);
+            u(9) = j_p_list(2,time_steps+1);
         end
         
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -205,10 +222,22 @@ function [X,L,j_list] = simulate(E,S)
         a_list(:,time_steps+1) = [xc(3,1) theta_hip theta_knee]';
         
         % Record movement of center of mass
-        d_list(:,time_steps+1) = [xc(1,1) xc(2,1)]';
+        d_list(:,time_steps+1) = [xc(1,1)+abs(E.walls(2,3)) xc(2,1)+abs(E.walls(1,3))]';
         
-        % Record Jump agility
-        j_list(time_steps+1) =  max_height/(t_stance + t_apogee);
+        %%%%
+        %%%%
+        %%%%
+        
+        % Record parameters for Jump agility
+        if xc(2,1) > 0.5 && t_stance_flag == 0
+            t_stance = time_steps+1;
+            t_stance_flag = 1;
+        end
+        
+        %%%%
+        %%%%
+        %%%%
+        
         % pause(0.1)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

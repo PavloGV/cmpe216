@@ -83,5 +83,10 @@ E.k_grav          = [0 -9.8 0];
 % --- initialize
 E                 = initE(E);
 
-% simulate 
-simulate(E);
+% simulate mass varying
+test_N = 1;
+op_list = zeros(1,test_N);
+for i = 1:1:test_N
+    [X, L, mh, ts, ta] = simulate(E)
+end
+
