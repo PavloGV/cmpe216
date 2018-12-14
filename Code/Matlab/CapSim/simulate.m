@@ -115,7 +115,7 @@ function [X,L,max_height,t_stance,t_apogee,t_max,ts_max] = simulate(E,S)
     
     jump_mag = 40;
     t_stance = 40;
-    t_offset = 10;
+    t_offset = 40;
     for (i = 1:1:t_stance)
         j_p_list(1, i+t_offset) = 2*jump_mag/3;
         j_p_list(2, i+t_offset) = -jump_mag;

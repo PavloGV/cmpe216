@@ -10,7 +10,7 @@ clear all
 clc
 
 % simulate mass varying
-test_N = 5;
+test_N = 100;
 jmp_ag_list = zeros(1,test_N);  % record jump agility 
 jmp_fr_list = zeros(1,test_N);  % record jump frequency
 jmp_time = zeros(1,test_N);
@@ -34,18 +34,9 @@ for i = 1:1:test_N
                      4  1];     % 3 Tibia
 
     % Mass
-    E.masses = [0.5 0.5 0.5]';
-    if (i == 1)
-        E.masses = E.masses/10;
-    elseif (i == 2)
-        E.masses = E.masses;        % the original
-    elseif (i == 3)
-        E.masses = E.masses*10;
-    elseif (i == 4)
-        E.masses = E.masses*100;
-    elseif (i == 5)
-        E.masses = E.masses*1000
-    end
+    E.masses = [0.5 0.5 0.5]'*(mod(i,test_N)); % the original masses
+
+    
     mass_list(i) = sum(E.masses); % mass in grams.
 
     % Joint connections
@@ -102,9 +93,7 @@ for i = 1:1:test_N
 
     % --- initialize
     E                 = initE(E);
-
     
-
     tic
     [X, L, mh, ts, ta,t_max,ts_max] = simulate(E);
     %ts = ts*t_max/ts_max;  % The time scaling is wrong for this method
@@ -117,21 +106,44 @@ for i = 1:1:test_N
     jmp_fr_list(i) = 1/(ts+ta);
     jmp_time(i) = ts+ta;
 end
-
+%% Mass Varying
 figure();
 hold on
-ylim([0 max(jmp_ag_list)]);
-xlim([0 1]);
-plot(jmp_time, jmp_ag, 'Marker','o');
-m1str = sprintf('mass: %-4.2f grams',mass_list(1));
-m2str = sprintf('mass: %-4.2f grams',mass_list(2));
-m3str = sprintf('mass: %-4.2f grams',mass_list(3));
-m4str = sprintf('mass: %-4.2f grams',mass_list(4));
-m5str = sprintf('mass: %-4.2f grams',mass_list(5));
-legend(m1str,m2str,m3str,m4str,m5str);
+ylim([min(jmp_ag_list) max(jmp_ag_list)+2]);
+xlim([min(mass_list) max(mass_list)+2]);
+sc = scatter(mass_list, jmp_ag_list,'Marker','.');
+
+% polynomial line of best fit
+x = linspace(min(mass_list),max(mass_list),test_N);
+p = polyfit(x,jmp_ag_list,test_N/10);
+f1 = polyval(p,x);
+x1 = linspace(0,2);
+f1 = polyval(p,x);
+best_fit = plot(x,f1,'r');
+
+legend(best_fit,'Best Fit')
 ylabel('Jump Agility (cm/s)');
-xlabel('Stance Time + Apogee Time (ms)');
+xlabel('Mass (grams)');
 title('Varying Mass for Jump Agility');
 hold off
 
-
+%% Max Height vs Jump Frequency
+% figure();
+% hold on
+% ylim([min(jmp_ag_list) max(jmp_ag_list)+2]);
+% xlim([min(mass_list) max(mass_list)+2]);
+% sc = scatter(mass_list, jmp_ag_list,'Marker','.');
+% 
+% % polynomial line of best fit
+% x = linspace(min(mass_list),max(mass_list),test_N);
+% p = polyfit(x,jmp_ag_list,test_N/10);
+% f1 = polyval(p,x);
+% x1 = linspace(0,2);
+% f1 = polyval(p,x);
+% best_fit = plot(x,f1,'r');
+% 
+% legend(best_fit,'Best Fit')
+% ylabel('Jump Agility (cm/s)');
+% xlabel('Mass (grams)');
+% title('Varying Mass for Jump Agility');
+% hold off
