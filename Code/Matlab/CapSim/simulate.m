@@ -1,4 +1,4 @@
-function [X,L,max_height,t_stance,t_apogee] = simulate(E,S)
+function [X,L,max_height,t_stance,t_apogee,t_max,ts_max] = simulate(E,S)
 
     % default values
     nm          = E.nm;                 % number of state variables
@@ -110,7 +110,8 @@ function [X,L,max_height,t_stance,t_apogee] = simulate(E,S)
     j_p_list = zeros(2,S.N);
     
     t_stance_flag = 0;
-    t_apogee_flag = 0;
+    ts_max = 200;
+    t_max = 0;
     
     jump_mag = 40;
     t_stance = 40;
@@ -138,8 +139,13 @@ function [X,L,max_height,t_stance,t_apogee] = simulate(E,S)
     
     % record jump agility
     if (j_flag == 1)
-        time_limit = 200;
+        time_limit = ts_max;
     end
+    
+    % Buffer for holding flea bot vertical positions
+    buf_size = 10;
+    vp_buf = zeros(2,buf_size);
+    
         
     % to make gif
     if (gif_flag == 1)
@@ -234,6 +240,16 @@ function [X,L,max_height,t_stance,t_apogee] = simulate(E,S)
             t_stance_flag = 1;
         end
         
+        for bi = 1:1:buf_size
+            vp_buf(1,bi+1) = vp_buf(1,bi);
+        end
+        vp_buf(1,1) = xc(2,1)+abs(E.walls(1,3));
+        
+        if xc(2,1)+abs(E.walls(1,3)) >= mean(vp_buf(1,:))
+            max_height = max(vp_buf(1,:));
+            t_apogee = time_steps;
+        end
+        
         %%%%
         %%%%
         %%%%
@@ -261,6 +277,9 @@ function [X,L,max_height,t_stance,t_apogee] = simulate(E,S)
         if time_steps < S.p_steps % move to right place
             v = zeros(size(v));
         end   
+        
+        %%%% my time measurements
+        t_max = t_max + i_time;
 
         % draw collision points?
         if ~S.c_points
